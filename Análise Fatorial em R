@@ -1,0 +1,42 @@
+install.packages("imputeTS")
+install.packages("GGally")
+install.packages("corrplot")
+install.packages("arm")
+install.packages("psych")
+
+dataframe <- na_mean(Exerc_A_fatorial)
+is.na(dataframe)
+sum(is.na(dataframe))
+summary(dataframe)
+View(dataframe)
+matrizDecorr <- cor(dataframe)
+round(matrizDecorr,2)
+matrizDecorr
+
+require(psych)
+
+cortest.bartlett(dataframe)
+
+
+KMO(dataframe)
+
+fitFactor <- princomp(dataframe, cor = TRUE)
+fitFactor
+
+summary(fitFactor)
+
+screeplot(fitFactor, hline = 5)
+abline(a = 1, b = 0, untf = FALSE)
+
+plot(fitFactor, type="line")
+abline(a = 1, b = 0, untf = FALSE)
+
+PCAfactor <- principal(dataframe, nfactors = 7, n.obs = 2800, rotate = "none", scores = TRUE)
+PCAfactor
+
+PCAfactorVarimax <- principal(dataframe, nfactors = 7, n.obs = 2800, rotate = "varimax", scores = TRUE)
+PCAfactorVarimax
+
+biplot(PCAfactorVarimax)
+
+fa.diagram(PCAfactorVarimax)
